@@ -1,119 +1,108 @@
 #include<iostream>
 
-//클래스
-//특정 객체애 속성과 기능을 정의한 집합체
-class Player
+
+//상속
+//기존에 정의되어 있는(상위)클래스 모든 멤버 변수와
+//멤버 함수를 물려 받아, 하위 클래스가 사용할 수 있는 것
+
+//상위 클래스는 상속을 물려주는 클래스
+//하위 클래스는 상속을 물려 받는 클래스
+
+class Phone
 {
-//접근 지정자
-//클래스 외부에서 접근 가능 멤버(변수, 함수)와
-//클래스 외부에서 접근이 허용되지 않는 멤버를 구분하는 지정자
-
-//public
-//클래스 내부와 자기가 상속하고 있는 클래스 그리고
-//클래스 외부에서 접근을 허용할 수 있는 지정자
-//private
-//클래스 내부에서만 접근이 허용되고, 자기가 상속하는 클래스와
-//클래스 외부에서 접근할 수 없는 지정자
-//protected
-//클래스 내부와 자기가 상속하는 클래스까지만 접근을 허용하고
-//클래스 외부에서 접근할 수 없는 지정자
-
-//클래스의 경우 접근 지정자를 해주지 않으면 기본적으로 private로 설정
 public:
-	int health;
-	float size;
+	//생성자는 자신의 클래스 이름으로 만들어 준다.
+	//생성자는 반환형이 존재하지 않습니다.
+	Phone()
+	{
+		std::cout << "핸드폰이 생성되었습니다." << std::endl;
+	}
+
+	//소멸자는 자신의 클래스 이름앞에 ~를 사용해서 만들어 준다.
+	~Phone()
+	{
+		std::cout << "핸드폰이 소멸되었습니다." << std::endl;
+	}
+
 	std::string name;
 
-private:
-	void Attack()
+	void Message()
 	{
-		std::cout << "공격" << std::endl;
+		std::cout << "문자 보내기" << std::endl;
+
+		//상위 클래스는 하위 클래스에서 정의한 함수를 사용할 수 없다.
+		//Touch();
+	}
+
+protected:
+	
+	void Call()
+	{
+		std::cout << "전화 걸기" << std::endl;
+	}
+
+};
+
+//상속하는 방법
+//class (하위 클래스 이름) : (상위 클래스 이름)
+class Smartphone : Phone
+{
+public:
+	void Touch()
+	{
+		Call();
 	}
 };
 
-
 int main()
 {
-	//C++ 입출력
+	//C++ 동적 할당
 	/*
-	char alphabet = 'B';
-	int value = 10;
-	float variable = 10.5;
+	//new (힙 영역에 할당할 메모리 공간의 크기)
+	int* ptr = new int;
 
-	//삽입 연산자(<<) : 출력 스트림 개체에 바이트로 보내는 연산자
-	std::cout << "alphabet 변수의 값 : " << alphabet << std::endl;
-	std::cout << "value 의 값 : " << value << std::endl;
-	std::cout << "variable의 값 : " << variable << std::endl;
+	*ptr = 100;
 
-	//추출 연산자 (>>)
-	//입력한 데이터를 입력 스트림에서 추출하여
-	//오른쪽에 위치한 변수에 값을 저장합니다.
+	std::cout << *ptr << std::endl;
+	std::cout << ptr << std::endl;
 	
-	//std::cin : 입력하기 위한 객체
-	std::cin >> value;
-	std::cout << "value 의 값 : " << value << std::endl;
+	//C++ 동적 할당 해제 : delete
+	delete ptr;
 
-	std::cout << "두 번째 안녕하세요.";
+	int* arrptr = new int[5];
 
-	//bool = 참과 거짓을 나타내는 자료형
-	bool value = true;
+	arrptr[0] = 20; arrptr[1] = 30; arrptr[2] = 40; arrptr[3] = 50; arrptr[4] = 60;
+
+	for (int i = 0; i < 5; i++)
+	{
+		std::cout << arrptr[i] << std::endl;
+	}
+
+	delete [] arrptr;
 	*/
 
-	//범위 기반 for문
-	/*
-	//시작과 끝점을 알려주지 않아도 데이터의 크기에 따라 
-	//끝가지 순환해주는 반복문
+	//Phone phone;  // <- 스택
 
-	int array[] = { 1,2,3,4,5 };
+	//Phone* phone = new Phone();  // <- 힙
+	//delete phone;
 
-	//element :: 변수 이름
-	//array : 데이터 리스트 (배열, 벡터, 리스트)
-	for (int element : array)
-	{
-		//범위 기반 for문 단점
-		//1.for문 내에서 index 정보가 존재하지 않습니다.
-		//2.for 문 안에서 배열의 요소를 변경할 수 없습니다.
+	//Smartphone* sphone = new Smartphone();
+	//delete sphone;
 
-		//값을 지정된 형태로 증가시키는 것은 가능합니다.
-		//배열 안에 있는 값을 전체 초기화도 가능합니다.
+	//정적 바인딩
+	//배열의 크기는 컴파일 시점에 메모리 크기가 결정됩니다.
+	//배열[100]; <- 메모리 공간 낭비위험
+	//특정 시점에 배열의 크기를 100개 사용해야 되지만,
+	//그 특정 시점이 넘어가면 더이상 사용할 필요가 없을 때
+	//동적 할당은 실행 시간에 메모리 공간 확보하고 줄이고 할 수 있음
 
-		//element : call by value 형태로 값만 존재합니다.
-		element = 10;
-		std::cout << element << std::endl;
-	}
+	//생성자
+	//클래스의 객체가 생성되었을 때 객체를 초기화하는
+	//목적으로 자동으로 실행되는 함수
 	
-	std::cout << "--------------" << std::endl;
-
-	for (int element : array)
-	{
-		std::cout << element << std :: endl;
-	}
-	*/
-
-	//자료형 추론
-	/*
-	//변수나 함수를 선언하고 연산이 이루어질 때 컴파일러가 자동으로
-	//자료형을 추론해주는 기능
-
-	//자료형 추론은 변수를 초기화하지 않으면 사용할 수 없습니다.
-	auto value = 10;
-	auto decimal = 20.6;
-
-	std::cout <<"value 변수의 값 : " << value << std::endl;
-	std::cout << "decimal 변수의 값 : " << decimal << std::endl;
-	*/
-
-	//클래스
-	Player Kim;
-
-	Kim.health = 100;
-	Kim.size = 10.65;
-	Kim.name = "kim";
-
-	//Kim.Attack();
-
-	std::cout << Kim.health << " " << Kim.size << " " << Kim.name << std::endl;
-
+	//소멸자
+	//클래스의 객체가 소멸되었을 때 자동으로 호출되는 함수
+	
 
 	return 0;
 }
