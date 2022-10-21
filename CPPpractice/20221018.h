@@ -6,14 +6,12 @@ using namespace std;
 
 int main()
 {
-    // ??¡¤¢®¨ö¨¬¢¯? ¡¾¢¬??¨¬?
     /*
     Monster monster1;
     Monster monster2;
     monster1.Attack(10);
     */
 
-    // ¢¯?¨ù???
     /*
     int sum = 0;
     int temporay = 0;
