@@ -1,160 +1,178 @@
 #include<iostream>
+#include<Windows.h>
+#include<time.h>
+#include<conio.h>
+#include<vector>
+
 using namespace std;
 
-//함수의 오버라이딩
+//가상소멸자
 /*
-//이미 정의된 함수를 무시하고, 같은 이름의 함수를 새롭게 정의하는 기능
+//가상으로 선언한 소멸자이다
+//가상 소멸자는 존재하지만, 가상 생성자는 존재하지 않는다.
 
-class Parent
+class A
 {
 public:
-	void Information()
+	A()
 	{
-		cout << "Parent 클래스입니다." << endl;
+		cout << "A 클래스 생성" << endl;
 	}
 
-	virtual void Talk()
+	virtual ~A()
 	{
-		cout << "Parent 클래스 Talk 함수" << endl;
+		cout << "A 클래스 소멸" << endl;
 	}
 };
 
-class Child : public Parent
+class B : public A
 {
 public:
-	//오버라이딩할 때 상위 클래스의 함수 이름과 동일하게 만들어주어야 한다.
-	void Information()
+	B()
 	{
-		cout << "Child 클래스입니다." << endl;
+		cout << "B 클래스 생성" << endl;
 	}
 
-	void Talk()
+	virtual ~B()
 	{
-		cout << "Child 클래스 Talk 함수" << endl;
+		cout << "B 클래스 소멸" << endl;
 	}
 };
 */
 
-//상속 관계일 때 생성자와 소멸자 호출 순서
+//프렌드
 /*
-class Fruit
+//클래스의 멤버 함수는 아니지만, 클래스에 friend 라고 선언하게 되면
+//클래스의 멤버 함수처럼 private 멤버에 접근할 수 있는 기능이다.
+
+class PeopleA
 {
-public:
-	Fruit()
+private:
+	int age;
+
+	friend void Information(PeopleA a)
 	{
-		cout << "Fruit 클래스 생성" << endl;
+		cout << "PeopleA 클래스 정보" << endl;
 	}
-	~Fruit()
-	{
-		cout << "Fruit 클래스 소멸" << endl;
-	}
+
+	//친구로 선언할 클래스의 이름을 선언한다.
+
+	//friend 키워드는 public, private, protected
+	//어디에서든 사용가능하다.
+	friend class PeopleB;
+
 	
+public:
+	int height = 170;
+	PeopleA(int age)
+	{
+		this->age = age;
+	}
 };
 
-class Apple : public Fruit
+class PeopleB
 {
 public:
-	Apple()
+	void FriendInformation(PeopleA people)
 	{
-		cout << "Apple 클래스 생성" << endl;
-	}
-	~Apple()
-	{
-		cout << "Apple 클래스 소멸" << endl;
+		cout << people.age << endl;
 	}
 };
 */
-
-//순수 가상 함수
-//선언만 있고 구현이 없는 가상 함수
-class Pen
-{
-public:
-	//순수 가상 함수는 함수에 0을 넣어준다.
-	//하위 클래스에서 재정의 할 것으로 예상되는 함수에 대해
-	//미리 호출 계획을 세워 두기 위해 정의한다.
-	virtual void Draw() = 0;
-	virtual void Color() = 0;
-};
-
-class Circle : public Pen
-{
-public:
-	//순수 가상 함수는무조건 하위 클래스에서 재정의를 해야한다.
-	void Draw()
-	{
-		cout << "동그라미" << endl;
-	}
-	void Color()
-	{
-		cout << "빨간색" << endl;
-	}
-};
-
-class Rectangle : public Pen
-{
-public:
-	void Draw()
-	{
-		cout << "네모" << endl;
-	}
-	void Color()
-	{
-		cout << "파란색" << endl;
-	}
-};
 
 int main()
 {
-	//가상 함수 테이블
+	//가상 소멸자
 	/*
-	Parent* parent = new Parent;
-	Child* child = new Child;
+	//가상 소멸자가 호출되면 상속 구조의 맨 아래에 있는 하위 클래스의
+	//소멸자가 대신 호출되면서 상위 클래스의 소멸자가 순서대로 호출된다.
+	A * aptr = new B();
 
-	parent->Talk(); //가상 함수
-	parent->Information(); //일반 함수
-
-	parent = child;
-	//parent 포인터의 참조를 child의 메모리 공간을 가르키도록 변경
-
-	//가상 함수 테이블이란
-	//함수 포인터 배열이며, 이 포인터를 따라가서 가상 함수로 선언된
-	//멤버 함수들의 주소에 배열 형태로 접근하여 호출하는 테이블이다.
-
-	//가상 함수 테이블이 실제 호출되어야 할 함수의 위치를 저장하고 있다.
-
-	parent->Talk(); //가상 함수
-	parent->Information(); //일반 함수
+	delete aptr;
+	*/
 	
-	delete child;
-	*/
-
-	//상속 관계일 때 생성자와 소멸자 호출 순서
+	//프렌드
 	/*
-	Apple apple;
-
-	//상속 관계에서 하위 클래스는 상위클래스의 생성자를 먼저 호출한 뒤
-	//그 다음에 하위 클래스의 생성자를 호출합니다.
-
-	//소멸자는 생성자의 역순으로 호출됩니다.
+	PeopleA a(20);
+	Information(a);
+	PeopleB b;
+	b.FriendInformation(a);
 	*/
 
-	//추상 클래스
-	//일부 함수가 구현되지 않고, 선언만 되어있는 클래스이다.
-	//추상 클래스는 객체를 생성할 수 없다.
+	//곱셈
+	/*
+	int a,b;
+	cin >> a >> b;
+	cout << a * (b % 10) << endl << a * ((b / 10) % 10) << endl << a * (b / 100) << endl << a * b;
+	*/
+	//소인수분해
+	/*
+	int a;
+	cin >> a;
+	for (int i = 2; a > 1 ;i++)
+	{
+		if (a % i == 0)
+		{
+			a /= i;
+			cout << i << endl;
+			i--;
+		}
+	}
+	*/
 
-	//상속받은 클래스에서도 순수 가상 함수들을 
-	//모두 다 재정의 해야만 생성할 수 있다.
+	//중복되지 않는 랜덤값
 
-	//필요한 모든 클래스가 구현될 수 있도록하여
-	//안정성을 높이는데 큰 효과를 줍니다.
+	srand(time(NULL));
 
-	Circle circle;
-	circle.Draw();
-	circle.Color();
-	Rectangle rectangle;
-	rectangle.Draw();
-	rectangle.Color();
+	vector<int> array;
+
+	int value = rand() % 10 + 1;
+	array.push_back(value);
+	cout << value << endl;
+
+	for (int i = 1; i < 10; i++)
+	{
+		value = rand() % 10 + 1;
+		
+		for (int j = 0; j < array.size(); j++)
+		{
+			if (array[j] == value)
+			{
+				i--;
+			}
+			else
+			{
+				array.push_back(value);
+				cout << value << endl;
+				break;
+			}
+		}
+		
+		
+
+	}
+
+
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
