@@ -1,178 +1,88 @@
 #include<iostream>
-#include<Windows.h>
-#include<time.h>
-#include<conio.h>
 #include<vector>
+#include<string>
 
 using namespace std;
 
-//가상소멸자
+//다이아몬드 상속
 /*
-//가상으로 선언한 소멸자이다
-//가상 소멸자는 존재하지만, 가상 생성자는 존재하지 않는다.
-
 class A
 {
 public:
 	A()
 	{
-		cout << "A 클래스 생성" << endl;
-	}
-
-	virtual ~A()
-	{
-		cout << "A 클래스 소멸" << endl;
+		cout << "A 클래스 호출" << endl;
 	}
 };
 
-class B : public A
+class B : virtual public A
 {
 public:
 	B()
 	{
-		cout << "B 클래스 생성" << endl;
-	}
-
-	virtual ~B()
-	{
-		cout << "B 클래스 소멸" << endl;
+		cout << "B 클래스 호출" << endl;
 	}
 };
-*/
 
-//프렌드
-/*
-//클래스의 멤버 함수는 아니지만, 클래스에 friend 라고 선언하게 되면
-//클래스의 멤버 함수처럼 private 멤버에 접근할 수 있는 기능이다.
-
-class PeopleA
+class C : virtual public A
 {
-private:
-	int age;
-
-	friend void Information(PeopleA a)
+public:
+	C()
 	{
-		cout << "PeopleA 클래스 정보" << endl;
+		cout << "C 클래스 호출" << endl;
 	}
+};
 
-	//친구로 선언할 클래스의 이름을 선언한다.
-
-	//friend 키워드는 public, private, protected
-	//어디에서든 사용가능하다.
-	friend class PeopleB;
-
+class D : public B, public C
+{
+public:
 	
-public:
-	int height = 170;
-	PeopleA(int age)
+	D()
 	{
-		this->age = age;
-	}
-};
-
-class PeopleB
-{
-public:
-	void FriendInformation(PeopleA people)
-	{
-		cout << people.age << endl;
+		cout << "D 클래스 호출" << endl;
 	}
 };
 */
 
 int main()
 {
-	//가상 소멸자
+	//다이아몬드 상속
 	/*
-	//가상 소멸자가 호출되면 상속 구조의 맨 아래에 있는 하위 클래스의
-	//소멸자가 대신 호출되면서 상위 클래스의 소멸자가 순서대로 호출된다.
-	A * aptr = new B();
+	//하나의 자식 클래스가 상속받는 서로 다른 부모 클래스들이
+	//같은 조부모 클래스를 상속받는 구조이다.
 
-	delete aptr;
-	*/
-	
-	//프렌드
-	/*
-	PeopleA a(20);
-	Information(a);
-	PeopleB b;
-	b.FriendInformation(a);
+	D d;
 	*/
 
-	//곱셈
-	/*
-	int a,b;
-	cin >> a >> b;
-	cout << a * (b % 10) << endl << a * ((b / 10) % 10) << endl << a * (b / 100) << endl << a * b;
-	*/
-	//소인수분해
+	//나머지
 	/*
 	int a;
-	cin >> a;
-	for (int i = 2; a > 1 ;i++)
-	{
-		if (a % i == 0)
-		{
-			a /= i;
-			cout << i << endl;
-			i--;
-		}
-	}
-	*/
-
-	//중복되지 않는 랜덤값
-
-	srand(time(NULL));
-
+	int count = 10;
 	vector<int> array;
-
-	int value = rand() % 10 + 1;
-	array.push_back(value);
-	cout << value << endl;
-
-	for (int i = 1; i < 10; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		value = rand() % 10 + 1;
-		
-		for (int j = 0; j < array.size(); j++)
+		cin >> a;
+		a %= 42;
+		array.push_back(a);
+	}
+
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = i + 1; j < 10; j++)
 		{
-			if (array[j] == value)
+			if (array[i] == array[j])
 			{
-				i--;
-			}
-			else
-			{
-				array.push_back(value);
-				cout << value << endl;
+				count--;
 				break;
 			}
 		}
-		
-		
-
 	}
+	cout << count;
+	*/
+
+	
 
 
 
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
