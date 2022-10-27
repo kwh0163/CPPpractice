@@ -143,6 +143,7 @@
     <ClCompile Include="Monster.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="20221026.h" />
     <ClInclude Include="20221013.h" />
     <ClInclude Include="20221014.h" />
     <ClInclude Include="20221017.h" />
