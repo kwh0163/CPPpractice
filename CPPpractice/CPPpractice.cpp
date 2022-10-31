@@ -1,134 +1,117 @@
 #include<iostream>
 #include<vector>
+#include<conio.h>
+#include<Windows.h>
 
 using namespace std;
 
-//템플릿 (클래스와 함수)
+#define UP 72
+#define DOWN 80
+#define LEFT 75
+#define RIGHT 77
 
-//함수 템플릿
-/*
-//데이터의 형식에 의존하지 않고, 하나의 값이 여러 다른 데이터
-//타입을 가질 수 있는 기능이다.
-
-//컴파일러는 미리 함수의 형틀을 기억한 다음 함수가 호출될 때
-//실제 함수를 호출한다.
-
-//함수 템플릿은 선언이기 때문에 메모리 할당과 구체화되어 있지
-//않은 상태이다.
-
-template <typename T>
-void Calculator(T x, T y)
+void gotoxy(int x, int y)
 {
-	cout << "x의 값 : " << x << endl << "y의 값 : " << y << endl;
-}
-*/
-
-//클래스 템플릿
-/*
-template<class T>
-class Game
-{
-private:
-	T num1;
-	T num2;
-
-public:
-	Game(T _num1, T _num2)
-	{
-		num1 = _num1;
-		num2 = _num2;
-	}
-
-	T GetNumber1()
-	{
-		return num1;
-	}
-
-	T GetNumber2()
-	{
-		return num2;
-	}
-};
-*/
-
-//템플릿 특수화
-/*
-//템플릿에서 미리 지정해놓은 타입이 들어왔을 경우
-//따로 처리하고 싶을 때 사용하는 템플릿 기능이다.
-template<typename T>
-void Add(T x, T y)
-{
-	cout << "x의 값 : " << x << endl;
-	cout << "y의 값 : " << y << endl;
-
+	COORD pos = { 2*x,y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-template<> // <= 템플릿의 특수화
-void Add(int x, int y) // <= int매개변수 처리함수
+int GetKey()
 {
+	int c;
 
+	if (_kbhit()) {
+		c = _getch();
+		if (c == -32) {
+			c = _getch();
+			return c;
+		}
+	}
+	else return 0;
 }
-*/
 
 int main()
 {
-	//함수 템플릿
+	//std::string
+#pragma region string문자열
 	/*
-	Calculator(10, 20);
+	string name = "MyName";
+	string * name1 = new string(name);
 
-	Calculator(10.5f, 6.7f);
+	cout << "name 변수의 값 : " << name << endl;
+	cout << "name1 변수의 값 : " << *name1 << endl;
 
-	Calculator('A', 'B');
-	*/
+	//append : string 객체에 가장 끝에 있는 메모리에 데이터를 추가한다
+	name.append("11");
 
-	//클래스 템플릿
-	/*
-	Game<int> game1(10,20);
-	cout << game1.GetNumber1() << endl;
-	cout << game1.GetNumber2() << endl;
+	delete name1;
 
-	Game<float> game2(8.5f, 9.6f);
-	cout << game2.GetNumber1() << endl;
-	cout << game2.GetNumber2() << endl;
-	*/
+	name1 = nullptr;
 
-	//템플릿 특수화
-	/*
-	Add(10.5f, 6.7f);
-	*/
-
-	//STL(Standard Template Library)
-	//표준 템플릿 라이브러리
-	//자료구조와 알고리즘을 Template 형태로 제공하는 라이브러리
-
-	//STL의 구성
-
-	//Vector
-	//동적으로 원소를 추가할 수 있으며, 크기가 자동으로 늘어나는
-	//컨테이너이다.
-	vector<int> data;
-
-	//vector의 push_back은 뒤에서부터 데이터를 넣어준다.
-	data.push_back(10);
-	data.push_back(5);
-	
-	//vector의 pop_back은 뒤에서부터 데이터를 뺀다.
-	data.pop_back();
-
-	cout << "data의 크기 : " << data.size() << endl;
-	//vector의 front는 맨 앞에 있는 원소를 출력한다.
-	cout << data.front() << endl;
-
-	//vector 같은 경우에는 맨 앞에 원소를 추가할 수 없습니다.
-
-	for (int i = 0; i < data.size(); i++)
+	//nullptr Null포인터란
+	//더 이상 아무 위치를 참조하지 않는 포인터이다.
+	if (name1 == nullptr)
 	{
-		cout << data[i] << endl;
+		name1 = new string("YourName");
 	}
 
+	cout << "name 변수의 값 : " << name << endl;
+	cout << "name1 변수의 값 : " << *name1 << endl;
+	*/
+#pragma endregion
 
+	//영어 1byte
+	//한글 2byte
+	//특수기호 3byte
+	vector<string> data = {"←", "→", "↑", "↓","↑" };
+	data.push_back("←");
 
+	//resize : vector 메모리의 크기를 변경한다.
+	//data.resize(10);
 
+	//size()
+	//현재의 원소의 갯수를 반환합니다.
+	cout << "size() : " << data.size() << endl;
 
+	//capacity()
+	//할당된 메모리 공간의 크기를 반환합니다.
+	//기존 메모리의 1.5배를 증가시키게 된다.
+	//이렇게 메모리를 할당하는 이유는 push_back이 일어날 때마다 동적할당을
+	//하게 되면 비효율적이기 때문에 미리 정해둔 만큼 동적할당을 한번에 하는 것이다.
+	cout << "capacity() : " << data.capacity() << endl;
+
+	int x = 0;
+
+	/*while (true)
+	{
+		for (string element : data)
+		{
+			cout << element << " ";
+		}
+
+		x = GetKey();
+
+		if (x == UP)
+		{
+			data.pop_back();
+		}
+		else if (x == DOWN)
+		{
+			data.pop_back();
+		}
+		else if (x == LEFT)
+		{
+
+		}
+		else if (x == RIGHT)
+		{
+
+		}
+		system("cls");
+
+	}*/
+
+	
+	
 	return 0;
 }
