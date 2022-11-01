@@ -62,5 +62,11 @@
     <ClInclude Include="20221028.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="20221031.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rythmgame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
