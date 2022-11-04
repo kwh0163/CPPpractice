@@ -1,57 +1,72 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
-#include<list>
+#include<queue>
+#include<stack>
 using namespace std;
 
 int main()
 {
-	//STL리스트
-	////각 노드가 데이터와 포인터를 가지고 한 줄로 연결된 방식으로
-	////데이터를 저장하는 자료구조이다.
-	//list<int> list1;
+	//큐 FIFO(First In First Out)
+	/*
+	//먼저 들어온 데이터가 가장 먼저 나가는 구조의 컨테이너
+	queue<int> Queue;
 
-	//list1.push_front(5); //push_front : 맨 앞에 데이터를 추가
-	//list1.push_back(10); //push_back : 맨 뒤에 데이터를 추가
-	//list1.push_back(20);
-	//list1.push_back(1);
-	//list1.push_back(2);
-	//list1.push_back(55);
-	//list1.push_back(100);
-	//list1.pop_back(); //맨 뒤에 데이터를 삭제
-	//list1.pop_front(); //맨 앞에 데이터를 삭제
+	//push : 큐 컨테이너에 데이터를 넣어주는 함수이다.
+	Queue.push(10);
+	Queue.push(20);
+	Queue.push(30);
+	Queue.push(50);
+	Queue.push(40);
+	Queue.push(90);
+	//pop : 큐 컨테이너에서 데이터를 꺼내는 함수이다.
+	Queue.pop();
 
-	//list1.sort(); // list에 있는 데이터를 오름차순으로 정렬한다.
-	////[10]->[20]->[1]->[2]->[55]
-	////=>[1]->[2]->[10]->[20]->[55]
+	//front : 큐 컨테이너의 저장되어 있는 원소 중에서 가장 앞에 있는 값을 리턴한다.
+	cout << Queue.front() << endl;
 
-	//list1.clear(); //list에 있는 모든 데이터를 삭제한다.
-	//
-	////list는 연속적인 메모리 공간이 아니기 때문에
-	////인덱스로 접근이 불가능하다.
-	////cout << list1[0] << endl;
+	//size : 큐 컨테이너의 크기를 출력하는 함수이다.
+	cout << Queue.size() << endl;
 
-	//for (int element : list1)
-	//{
-	//	cout << element << endl;
-	//}
+	//empty : 큐 컨테이너가 비어있는지 확인하는 함수이다.
+	cout << Queue.empty() << endl;
 
-	int result = 0;
-	int N;
-	cin >> N;
-	int array[100] = { 0, };
-	for (int i = 0; i < N; i++)
+	//queue 모든원소 출력
+	while (!Queue.empty())
 	{
-		scanf("%1d", &array[i]);
+		cout << Queue.front() << endl;
+		Queue.pop();
 	}
-	for (int element : array)
-	{
-		result += element;
-	}
+	*/
 
-	cout << result;
+	//스택 LIFO(Last In First Out)
+	/*
+	//가장 마지막에 들어온 데이터가 가장 먼저 나가는 구조의 컨테이너
+	stack<int> Stack;
+	stack<int> otherStack;
 
+	otherStack.push(-100);
+	otherStack.push(-200);
+	otherStack.push(-300);
 
+	Stack.push(10);
+	Stack.push(20);
+	Stack.push(30);
 
+	//top : 가장 위에 있는 원소를 출력하는 함수이다.
+	cout << Stack.top() << endl;
+
+	//pop : 가장 위에 있는 원소를 빼는 함수이다.
+	Stack.pop();
+
+	//size : 스택 컨테이너에 들어있는 크기를 반환하는 함수이다.
+	cout << Stack.size() << endl;
+
+	//swap : 두 스택의 내용을 바꾸는 함수
+	swap(Stack, otherStack);
+	cout << Stack.top() << endl;
+	*/
+
+	
+	
 
 
 	return 0;
