@@ -1,72 +1,84 @@
 #include<iostream>
-#include<deque>
-#include<set>
-#include<stack>
 using namespace std;
+
+template<typename __T>
+class Queue
+{
+private:
+	int __rear = -1;
+	int __front = -1;
+	__T __array[5] = { 0, };
+	bool Empty();
+	bool IsFull();
+public:
+	void Push(__T __value);
+	__T Pop();
+};
+template<typename __T>
+bool Queue<__T>::Empty()
+{
+	if (this->__front == this->__rear)
+	{
+		cout << "큐가 비었습니다." << endl;
+		return true;
+	}
+	else return false;
+}
+template<typename __T>
+bool Queue<__T>::IsFull()
+{
+	if (this->__rear == 4)
+	{
+		cout << "데이터를 넣을 수 없습니다." << endl;
+		return true;
+	}
+	else return false;
+}
+template<typename __T>
+void Queue<__T>::Push(__T __value)
+{
+	if (!this->IsFull())this->__array[++this->__rear] = __value;
+}
+template<typename __T>
+__T Queue<__T>::Pop()
+{
+	if (!this->Empty())
+	{
+		int temp = this->__array[++this->__front];
+		return temp;
+	}
+	return 0;
+}
 
 int main()
 {
-	//deque
-	/*
-	//데이터가 들어오고 나가는 위치가 앞,뒤에 있는 선형 컨테이너이다.
-
-	deque<int> dequeData;
-	dequeData.push_back(2);
-	dequeData.push_front(1);
-	dequeData.push_back(3);
-	dequeData.push_back(4);
-	dequeData.push_front(10);
-
-	//insert : 내가 삽입하고자 하는 위치, 들어갈 값
-	dequeData.insert(dequeData.begin() + 2, 500);
-
-	//erease : 내가 삭제하고 싶은 원소의 위치
-	dequeData.erase(dequeData.begin());
-
-	//for (int iter : dequeData) cout << iter << endl;
-	for (int i = 0; i < dequeData.size(); i++)
-	{
-		cout << dequeData.at(i) << endl;
-
-		//[]인덱스로 접근하여 출력하는 부분이 성능상 유리하다.
-		cout << dequeData[i] << endl;
-	}
-	*/
-
-	//multi_set
-	/*
-	//set과 다르게 중복된 원소를 컨테이너에 저장할 수 있는 자료구조이다.
-	multiset<int>mset;
-	mset.insert(7);
-	mset.insert(4);
-	mset.insert(1);
-	mset.insert(2);
-	mset.insert(3);
-	mset.insert(6);
-	mset.insert(7);
-	mset.insert(5);
+	//큐
+	//FIFO(first in first out)
+	//먼저 들어온 데이터가 먼저 나가는 구조
 	
-
-	for (auto iter = mset.begin(); iter != mset.end(); iter++)
-	{
-		cout << *iter << endl;
-	}
-	//count(?) : 현재 컨테이너에 ?라는 값이 몇개 존재하는지 출력해주는 함수
-	cout << "mset에 7이라는 값은 현재 " << mset.count(7) << "개 있습니다." << endl;
-
-	//4가 처음으로 나온 부분은 어디일까요?
-	multiset<int>::iterator start;
-
-	start = mset.lower_bound(4);
-	cout << "4가 처음으로 나온 부분은 " << *start << "이다." << endl;
-	*/
-
-	//node(struct)
-
-	//stack, queue
-	stack<int> Stack;
+	Queue<char> queue;
+	queue.Push('T');
+	queue.Push('A');
+	queue.Push('B');
+	queue.Push('C');
+	queue.Push('D');
+	queue.Push('Q');
+	cout << queue.Pop() << endl;
+	cout << queue.Pop() << endl;
+	cout << queue.Pop() << endl;
+	cout << queue.Pop() << endl;
+	cout << queue.Pop() << endl;
+	cout << queue.Pop() << endl;
 
 
+	//선형 큐
+	//선형 큐의 문제점
+	//데이터를 추가할 때 index의 값을 감소하지 않고 증가만 시키기 때문에
+	//실제로 앞에 있는 데이터가 없을 때도 큐에 데이터를 저장할 수 없는 형태가 나타납니다.
+
+
+	//원형 큐
+	
 
 
 	return 0;
