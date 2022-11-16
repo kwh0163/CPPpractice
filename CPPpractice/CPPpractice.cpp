@@ -1,66 +1,68 @@
 #include<iostream>
-#define __next(x) ((x+1)%6)
 using namespace std;
 
-class Queue{
-private:
-	int __front = 5;
-	int __rear = 5;
-	int __buffer[6] = {0,};
+//클래스의 메모리 구조
+class Object {
+//클래스 오프셋
+//동일한 오브젝트 안에서 처음부터 주어진 요소나
+//지점까지의 변위차를 정수형으로 나타내는 값이다.
+
+//ex) A[6] = "ABCDE";
+//C라는 값은 A 시작점에서 2의 오프셋을 가지는 값이다.
+
 public:
-	bool Empty();
-	void Push(int __value);
-	int Pop();
-	bool isFull();
+	char charData;
+	int intData;
+	double doubleData;
+
+	//static 변수는 클래스 내부에 메모리가 잡히지 않는다.
+	static int staticData;
+
+	void StaticDataFunction()
+	{
+		staticData++;
+	}
+
+
 };
-bool Queue::Empty(){
-	if (this->__front == this->__rear) {
-		cout << "큐가 비었습니다. ";
-		return true;
-	}
-	else return false;
-}
-void Queue::Push(int __value){
-	if (!this->isFull()) {
-		this->__rear = __next(this->__rear);
-		this->__buffer[this->__rear] = __value;
-	}
-}
-int Queue::Pop(){
-	if (!(this->Empty())) {
-		this->__front = __next(this->__front);
-		int temp = this->__buffer[this->__front];
-		__buffer[this->__front] = 0;
-		return temp;
-	}
-	else return 0;
-}
-bool Queue::isFull(){
-	if (__next(this->__rear) == this->__front) {
-		cout << "데이터가 더이상 들어갈 수 없습니다." << endl;
-		return true;
-	}
-	else return false;
-}
+
+//클래스 내부에 있는 static 변수는 클래스 외부에서 전역 변수처럼 초기화를 해야한다.
+int Object::staticData = 0;
 
 int main(){
-	Queue array;
-	array.Push(1);
-	array.Push(2);
-	array.Push(3);
-	array.Push(4);
-	array.Push(5);
-	cout << array.Pop() << endl;
-	cout << array.Pop() << endl;
-	cout << array.Pop() << endl;
-	cout << array.Pop() << endl;
-	cout << array.Pop() << endl;
-	array.Push(4);
-	array.Push(3);
-	array.Push(5);
-	cout << array.Pop() << endl;
-	cout << array.Pop() << endl;
-	cout << array.Pop() << endl;
+	//Object object;
+	Object object1;
+	Object object2;
+	Object object3;
+
+	object1.StaticDataFunction();
+	object2.StaticDataFunction();
+	object3.StaticDataFunction();
+	cout << Object::staticData << endl;
+
+
+
+	//클래스의 메모리
+	/*
+	object.charData = 'A';
+	object.intData = 10;
+	object.doubleData = 30.5;
+
+	//클래스의 메모리 크기를 결정하는 것은 멤버 변수 중에서 
+	//가장 큰 자료형의 배수가 되도록 설정한다.
+	cout << "Object 클래스의 크기 : " << sizeof(Object) << endl;
+	*/
+
+	//클래스의 오프셋
+	/*
+	cout << (int)(&(((Object*)0)->charData)) << endl;
+	cout << (int)(&(((Object*)0)->intData)) << endl;
+	cout << (int)(&(((Object*)0)->doubleData)) << endl;
+	*/
+
+
+
+
 
 
 	return 0;
