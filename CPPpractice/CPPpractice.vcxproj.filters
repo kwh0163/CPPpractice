@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CPPpractice.cpp">
+    <ClCompile Include="cpppractice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
@@ -93,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="20221116.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="20221117.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
