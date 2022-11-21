@@ -1,52 +1,51 @@
 #include<iostream>
 using namespace std;
 
-class User {
-public:
-	void operator() () {
-		cout << "Function Object" << endl;
-		cout << "signal : " << signal << endl;
-	}
-private:
-	int signal = 0;
+struct Node {
+	int _data;
+	Node* _next;
+
 };
 
+
+
 int main(){
-	//선택 정렬
-	/*
-	//주어진 리스트 중에서 최솟값을 찾은 다음 그 값을 맨 앞에
-	//위치한 값과 교체하는 정렬이다.
+	//연결리스트
 
-	int array[5] = {10,4,3,1,7};
+	//1. 단방향 연결 리스트
+
+	Node* _head = NULL;
+	Node* node1 = new Node;
+	node1->_data = 10;
+	_head = node1;
+
+	Node* node2 = new Node;
+	node2->_data = 20;
+	_head->_next = node2;
+
+	Node* node3 = new Node;
+	node3->_data = 30;
+	node2->_next = node3;
+	node3->_next = NULL;
+
+	Node*ptr = _head;
+	while (ptr != NULL)
+	{
+		cout << ptr->_data << endl;
+		ptr = ptr->_next;
+	}
+
 	
-	for (int i = 0; i < 5; i++) {
-		int min = 999;
-		int index= 100;
-		for (int j = i; j < 5; j++) {
-			if (min > array[j]) {
-				min = array[j];
-				index = j;
-			}
-		}
-		if (!(index == i)){
-			int temp = array[index];
-			array[index] = array[i];
-			array[i] = temp;
-		}
-	}
-	for (int iter : array) {
-		cout << iter << endl;
-	}
-	*/
-
-	//함수 객체
-	//함수처럼 동작하는 객체이다.
-	User user;
-	user();
 
 
+	delete node1;
+	delete node2;
+	delete node3;
 
 
+	//2. 원형 연결 리스트
+
+	//3. 양방향 연결 리스트
 
 	return 0;
 }
