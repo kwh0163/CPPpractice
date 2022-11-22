@@ -6,46 +6,54 @@ struct Node {
 	Node* _next;
 
 };
-
-
+void insert(Node* _targetnode, int _value) {
+	Node* _NewNode = new Node;
+	_NewNode->_data = _value;
+	_NewNode->_next = _targetnode->_next;
+	_targetnode->_next = _NewNode;
+}
+void remove(Node* _originNode) {
+	Node* _pointer = _originNode->_next;
+	_originNode->_next = _originNode->_next->_next;
+	delete _pointer;
+}
 
 int main(){
 	//연결리스트
 
 	//1. 단방향 연결 리스트
+	
+	Node* _head = new Node;
+	_head->_next = NULL;
+	insert(_head, 10);
+	insert(_head, 20);
+	insert(_head, 30);
+	remove(_head);
 
-	Node* _head = NULL;
-	Node* node1 = new Node;
-	node1->_data = 10;
-	_head = node1;
+	Node* currentNode = _head->_next;
 
-	Node* node2 = new Node;
-	node2->_data = 20;
-	_head->_next = node2;
-
-	Node* node3 = new Node;
-	node3->_data = 30;
-	node2->_next = node3;
-	node3->_next = NULL;
-
-	Node*ptr = _head;
-	while (ptr != NULL)
-	{
-		cout << ptr->_data << endl;
-		ptr = ptr->_next;
+	while (currentNode != NULL) {
+		cout << currentNode->_data << endl;
+		currentNode = currentNode->_next;
 	}
 
+	Node* _pointer = _head;
+	while (_pointer != NULL) {
+
+		Node* _iter = _pointer;
+		_pointer = _pointer->_next;
+		delete _iter;
+	}
+	
+	//2. 원형 연결 리스트
 	
 
-
-	delete node1;
-	delete node2;
-	delete node3;
-
-
-	//2. 원형 연결 리스트
-
 	//3. 양방향 연결 리스트
+
+
+
+
+
 
 	return 0;
 }
