@@ -2,58 +2,65 @@
 using namespace std;
 
 struct Node {
-	int _data;
 	Node* _next;
-
+	Node* _prev;
+	int _data;
 };
-void insert(Node* _targetnode, int _value) {
-	Node* _NewNode = new Node;
-	_NewNode->_data = _value;
-	_NewNode->_next = _targetnode->_next;
-	_targetnode->_next = _NewNode;
+Node* _head = NULL;
+Node* _tail = NULL;
+void Insert(Node* targetNode, int _value) {
+	Node* newNode = new Node;
+	targetNode->_next->_prev = newNode;
+	newNode->_next = targetNode->_next;
+	targetNode->_next = newNode;
+	newNode->_prev = targetNode;
+	newNode->_data = _value;
 }
-void remove(Node* _originNode) {
-	Node* _pointer = _originNode->_next;
-	_originNode->_next = _originNode->_next->_next;
-	delete _pointer;
-}
-
-int main(){
-	//연결리스트
-
-	//1. 단방향 연결 리스트
-	
-	Node* _head = new Node;
-	_head->_next = NULL;
-	insert(_head, 10);
-	insert(_head, 20);
-	insert(_head, 30);
-	remove(_head);
-
-	Node* currentNode = _head->_next;
-
-	while (currentNode != NULL) {
-		cout << currentNode->_data << endl;
-		currentNode = currentNode->_next;
-	}
-
-	Node* _pointer = _head;
-	while (_pointer != NULL) {
-
-		Node* _iter = _pointer;
-		_pointer = _pointer->_next;
+void Clear() {
+	Node* pointer = _head;
+	while (pointer != NULL) {
+		Node* _iter = pointer;
+		pointer = pointer->_next;
 		delete _iter;
 	}
-	
-	//2. 원형 연결 리스트
-	
+}
+void FrontOutput() {
+	Node* pointer = _head->_next;
+	while (pointer != _tail) {
+		cout << pointer->_data << endl;
+		pointer = pointer->_next;
+	}
+}
+void BackOutput() {
+	Node* pointer = _tail->_prev;
+	while (pointer != _head) {
+		cout << pointer->_data << endl;
+		pointer = pointer->_prev;
+	}
+}
+void Remove(Node* targetNode) {
+	Node* deleteNode = targetNode->_next;
+	if (deleteNode == NULL) return;
+	targetNode->_next = targetNode->_next->_next;
+	targetNode->_next->_prev = targetNode;
+	delete deleteNode;
+}
+int main() {
+	_head = new Node;
+	_tail = new Node;
+	_head->_next = _tail;
+	_head->_prev = NULL;
+	_tail->_prev = _head;
+	_tail->_next = NULL;
 
-	//3. 양방향 연결 리스트
+	Insert(_head, 10);
+	Insert(_head, 20);
+	Insert(_head, 30);
+	Remove(_head);
+	FrontOutput();
+	BackOutput();
 
 
-
-
-
-
+	Clear();
 	return 0;
 }
