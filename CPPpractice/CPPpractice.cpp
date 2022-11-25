@@ -1,66 +1,55 @@
 #include<iostream>
+#include<string>
 using namespace std;
 
-struct Node {
-	Node* _next;
-	Node* _prev;
-	int _data;
-};
-Node* _head = NULL;
-Node* _tail = NULL;
-void Insert(Node* targetNode, int _value) {
-	Node* newNode = new Node;
-	targetNode->_next->_prev = newNode;
-	newNode->_next = targetNode->_next;
-	targetNode->_next = newNode;
-	newNode->_prev = targetNode;
-	newNode->_data = _value;
-}
-void Clear() {
-	Node* pointer = _head;
-	while (pointer != NULL) {
-		Node* _iter = pointer;
-		pointer = pointer->_next;
-		delete _iter;
-	}
-}
-void FrontOutput() {
-	Node* pointer = _head->_next;
-	while (pointer != _tail) {
-		cout << pointer->_data << endl;
-		pointer = pointer->_next;
-	}
-}
-void BackOutput() {
-	Node* pointer = _tail->_prev;
-	while (pointer != _head) {
-		cout << pointer->_data << endl;
-		pointer = pointer->_prev;
-	}
-}
-void Remove(Node* targetNode) {
-	Node* deleteNode = targetNode->_next;
-	if (deleteNode == NULL) return;
-	targetNode->_next = targetNode->_next->_next;
-	targetNode->_next->_prev = targetNode;
-	delete deleteNode;
-}
 int main() {
-	_head = new Node;
-	_tail = new Node;
-	_head->_next = _tail;
-	_head->_prev = NULL;
-	_tail->_prev = _head;
-	_tail->_next = NULL;
+	//삽입 정렬
+	/*
+	//배열의 모든 요소를 앞에서부터 차례대로 이미 정렬된 배열부분과
+	//비교하여, 자신의 위치를 찾아 삽입함으로써 정렬을 완성하는 알고리즘이다.
 
-	Insert(_head, 10);
-	Insert(_head, 20);
-	Insert(_head, 30);
-	Remove(_head);
-	FrontOutput();
-	BackOutput();
+	int array[5] = { 5,3,7,1,2 };
+
+	for (int i = 1; i < 5; i++) {
+		int key = array[i];
+		for (int j = i - 1; j >= 0; j--) {
+			if (array[j] > key) {
+				array[j+1] = array[j];
+				array[j] = key;
+			}
+			else break;
+		}
+	}
+	for (int iter : array) {
+		cout << iter << endl;
+	}
+	*/
+
+	//단어공부
+	int Array[26] = {0,};
+	string str;
+	getline(cin, str);
+
+	for (int i = 0; i < str.size(); i++) {
+		if (str[i] > 96) {
+			Array[(int)str[i] - 97]++;
+		}
+		else Array[(int)str[i]-65]++;
+	}
+	int Max = 0;
+	int MaxA;
+	bool Same = false;
+	for (int i = 0; i < 26; i++) {
+		if (Max < Array[i]) {
+			Max = Array[i];
+			MaxA = i;
+			Same = false;
+		}
+		else if (Max == Array[i]) Same = true;
+	}
+	if (Same) cout << "?" << endl;
+	else cout << (char)(MaxA+65) << endl;
 
 
-	Clear();
 	return 0;
 }
