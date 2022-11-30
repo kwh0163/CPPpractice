@@ -1,55 +1,91 @@
 #include<iostream>
-#include<string>
+
 using namespace std;
 
+struct Node {
+	int data;
+	Node* left;
+	Node* right;
+};
+
+Node * CreateNode(int _value, Node* leftptr, Node* rightptr) {
+	Node* NewNode = new Node;
+	NewNode->data = _value;
+	NewNode->left = leftptr;
+	NewNode->right = rightptr;
+
+	return NewNode;
+}
+//전위 순회
+//1.자기 자신부터 출력
+//2.왼쪽의 자식 노드를 출력
+//3.오른쪽의 자식 노드를 출력
+void Preorder(Node* root) {
+	cout << root->data << endl;
+	if (root->left != NULL)
+	{
+		Preorder(root->left);
+	}
+	if (root->right != NULL)
+	{
+		Preorder(root->right);
+	}
+}
+
+//중위 순회
+//1.왼쪽 자식 노드를 출력
+//2.자기 자신의 노드 출력
+//3.오른쪽 자식 노드를 출력
+
+
+//후위 순회
+//1.왼쪽 자식 노드를 출력
+//2.오른쪽 자식 노드를 출력
+//3.자기 자신의 노드를 출력
+
+
 int main() {
-	//삽입 정렬
-	/*
-	//배열의 모든 요소를 앞에서부터 차례대로 이미 정렬된 배열부분과
-	//비교하여, 자신의 위치를 찾아 삽입함으로써 정렬을 완성하는 알고리즘이다.
+	//트리 구조
+	//한 노드에서 시작해서 다른 정점들을 순회하여 
+	//자기 자신에게 돌아오는 순환이 없는 연결 그래프이다.
 
-	int array[5] = { 5,3,7,1,2 };
-
-	for (int i = 1; i < 5; i++) {
-		int key = array[i];
-		for (int j = i - 1; j >= 0; j--) {
-			if (array[j] > key) {
-				array[j+1] = array[j];
-				array[j] = key;
-			}
-			else break;
-		}
-	}
-	for (int iter : array) {
-		cout << iter << endl;
-	}
-	*/
-
-	//단어공부
-	int Array[26] = {0,};
-	string str;
-	getline(cin, str);
-
-	for (int i = 0; i < str.size(); i++) {
-		if (str[i] > 96) {
-			Array[(int)str[i] - 97]++;
-		}
-		else Array[(int)str[i]-65]++;
-	}
-	int Max = 0;
-	int MaxA;
-	bool Same = false;
-	for (int i = 0; i < 26; i++) {
-		if (Max < Array[i]) {
-			Max = Array[i];
-			MaxA = i;
-			Same = false;
-		}
-		else if (Max == Array[i]) Same = true;
-	}
-	if (Same) cout << "?" << endl;
-	else cout << (char)(MaxA+65) << endl;
+	//이진 트리
+	//최대 2개의 자식 노드를 가지는 트리
+	Node* node7 = CreateNode(7, NULL, NULL);
+	Node* node6 = CreateNode(6, NULL, NULL);
+	Node* node5 = CreateNode(5, NULL, NULL);
+	Node* node4 = CreateNode(4, NULL, NULL);
+	Node* node3 = CreateNode(3, node6, node7);
+	Node* node2 = CreateNode(2,node4,node5);
+	Node* node1 = CreateNode(1,node2,node3);
+	Preorder(node1);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	delete node1;
+	delete node2;
+	delete node3;
+	delete node4;
+	delete node5;
+	delete node6;
+	delete node7;
 	return 0;
 }

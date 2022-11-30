@@ -107,5 +107,11 @@
     <ClInclude Include="20221123.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="20221125.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="20221128.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
