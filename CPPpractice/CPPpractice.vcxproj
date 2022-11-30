@@ -171,6 +171,7 @@
     <ClInclude Include="20221123.h" />
     <ClInclude Include="20221125.h" />
     <ClInclude Include="20221128.h" />
+    <ClInclude Include="20221129.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="rythmgame.h" />
   </ItemGroup>
