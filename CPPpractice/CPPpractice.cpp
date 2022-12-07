@@ -1,59 +1,29 @@
 #include<iostream>
-
+#include<string>
 using namespace std;
 
-struct Node {
-	int key;
-	int value;
-	Node* next;
-};
-
-struct Bucket {
-	Node* head;
-	int size;
-};
-
-Bucket* Hash = new Bucket[5];
-
-Node* CreateNode(int _key, int _value) {
-	Node * NewNode = new Node;
-	NewNode->next = NULL;
-	NewNode->key = _key;
-	NewNode->value = _value;
-
-	return NewNode;
-}
-
-int HashFunction(int _key) {
-	return _key % 5;
-}
-
-void Insert(int _key, int _value) {
-	int HashIndex = HashFunction(_key);
-
-	//방금 생성한 새로운 노드의 주소가 반환됨
-	struct Node* newNode = CreateNode(_key, _value);
-	
-	//버켓(hash)의 인덱스의 size가 0이라면
-	if (Hash[HashIndex].size == 0) {
-		//사이즈 값 증가
-		Hash[HashIndex].size++;
-		//head 포인터를 새로 처음 들어온 newNode 가리킴
-		Hash[HashIndex].head->next = newNode;
-	}
-	else {
-		
-	}
-}
-
 int main() {
-	//해시 테이블
-	//해시함수를 사용해서 변환한 값을 index로 삼아서 key와 value를
-	//저장하는 자료구조이다.
+	//회문 판별 알고리즘
+	/*
+	string Word;
+	getline(cin, Word);
+	int last = Word.size();
+	bool check = true;
+	for (int i = 0; i < last / 2; i++) {
+		if (Word[i] != Word[last - 1-i]) {
+			check = false;
+			break;
+		}
+	}
+	if (check) cout << "회문입니다." << endl;
+	else cout << "회문이 아닙니다." << endl;
+	*/
 
+	//접미사
+
+	//리터럴 상수 값은 double 자료형으로 치환됩니다.
+	auto value = 4.5f;
 	
-
-
 
 	return 0;
 }
